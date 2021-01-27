@@ -1,7 +1,16 @@
+import net.fabricmc.loom.task.RemapJarTask
+
 plugins {
 	id 'fabric-loom' version '0.5-SNAPSHOT'
 	id 'maven-publish'
 }
+
+minecraft {
+	accessWidener = file("src/main/resources/kekmium.accesswidener")
+	refmapName = "mixins.kekmium.refmap.json"
+}
+
+apply plugin: 'fabric-loom'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8

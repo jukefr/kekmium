@@ -13,7 +13,7 @@
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
 
-  "license": "CC0-1.0",
+  "license": "AGPL-3.0-only",
   "icon": "assets/modid/icon.png",
 
   "environment": "*",
@@ -23,9 +23,9 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "kekmium.mixins.json"
   ],
-
+  "accessWidener": "kekmium.accesswidener",
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",

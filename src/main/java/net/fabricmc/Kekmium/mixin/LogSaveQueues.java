@@ -11,17 +11,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ThreadedAnvilChunkStorage.class)
-public class LogSaves {
+public class LogSaveQueues {
 	private static final Logger logger = LogManager.getLogger();
-
-	@Inject(at = @At("HEAD"), method = "save(Lnet/minecraft/world/chunk/Chunk;)Z")
-	private void preSave(Chunk chunk, CallbackInfoReturnable<Boolean> cir) {
-		logger.log(Level.INFO, "[Kekmium] saving chunk {}",  chunk.getPos().toString());
-	}
 
 	@Inject(at = @At("RETURN"), method = "save(Lnet/minecraft/world/chunk/Chunk;)Z")
 	private void postSave(Chunk chunk, CallbackInfoReturnable<Boolean> cir) {
-		logger.log(Level.INFO, "[Kekmium] saved chunk {}",  chunk.getPos().toString());
+		logger.log(Level.INFO, "[Kekmium] queued for saving chunk {}",  chunk.getPos().toString());
 
 	}
 }
