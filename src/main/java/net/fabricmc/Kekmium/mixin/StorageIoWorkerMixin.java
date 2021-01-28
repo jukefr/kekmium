@@ -15,12 +15,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(StorageIoWorker.class)
-public class LogWrites {
-	private static final Logger logger = LogManager.getLogger();
+import java.util.ArrayList;
+import java.util.List;
 
-	@Inject(at = @At("RETURN"), method = "write", locals = LocalCapture.CAPTURE_FAILSOFT)
-	private void preSave(ChunkPos pos, StorageIoWorker.Result result, CallbackInfo ci) {
-		logger.log(Level.INFO, "[Kekmium] wrote chunk {}",  pos.toString());
+@Mixin(StorageIoWorker.class)
+public class StorageIoWorkerMixin {
+	private static final Logger logger = LogManager.getLogger();
+	private static long lastTime = System.currentTimeMillis();
+	List<String> done = new ArrayList<>();
+
+	@Inject(at = @At("RETURN"), method = "write")
+	private void write(ChunkPos pos, StorageIoWorker.Result result, CallbackInfo ci) {
+		if ( (System.currentTimeMillis() - lastTime > 1000)) {
+			lastTime = System.currentTimeMillis();
+			if(!done.contains(pos.toString()))
+				done.add(pos.toString());
+			logger.log(Level.INFO, "[Kekmium] {} chunks written in the last second", done.size());
+			done.clear();
+		} else {
+			if(!done.contains(pos.toString()))
+				done.add(pos.toString());
+		}
 	}
 }

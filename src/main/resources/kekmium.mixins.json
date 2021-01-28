@@ -4,8 +4,9 @@
   "package": "net.fabricmc.Kekmium.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "LogSaveQueues",
-    "LogWrites"
+    "ChunkTicketManagerMixin",
+    "StorageIoWorkerMixin",
+    "ThreadedAnvilChunkStorageMixin"
   ],
   "client": [
   ],
